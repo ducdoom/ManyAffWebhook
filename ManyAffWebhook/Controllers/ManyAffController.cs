@@ -11,7 +11,7 @@ namespace ManyAffWebhook.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok("Success!");
+            return Ok("Success cool!");
         }
 
 
