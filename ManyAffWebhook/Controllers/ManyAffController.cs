@@ -7,6 +7,13 @@ namespace ManyAffWebhook.Controllers
     [ApiController]
     public class ManyAffController : ControllerBase
     {
+        [Route("test")]
+        [HttpGet]
+        public IActionResult Get()
+        {
+            return Ok("Success!");
+        }
+
 
     }
 }
