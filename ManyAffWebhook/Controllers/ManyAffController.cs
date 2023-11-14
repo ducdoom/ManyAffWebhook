@@ -4,7 +4,7 @@ using System.Text.Json;
 
 namespace ManyAffWebhook.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1")]
     [ApiController]
     public class ManyAffController : ControllerBase
     {
@@ -15,7 +15,7 @@ namespace ManyAffWebhook.Controllers
             return Ok("Success cool!");
         }
 
-        [Route("send")]
+        [Route("sendladisaledata")]
         [HttpPost]
         public async Task<IActionResult> Post()
         {
@@ -32,18 +32,33 @@ namespace ManyAffWebhook.Controllers
             request.Content = new StringContent(jsonString, Encoding.UTF8, "application/json");
             var response = await client.SendAsync(request);
             return Ok("send message successfully!");
+        }
 
+        [Route("sendmessageasync")]
+        [HttpGet]
+        public async Task<IActionResult> SendMessageAsync()
+        {
+            string postData = @"{
+    ""email"": ""pub1@gmail.com"",
+    ""password"": ""123456"",
+    ""values"": 1
+}";
 
-            //try
-            //{
-            //    JsonDocument jsonDocument;
-            //    jsonDocument = await JsonDocument.ParseAsync(Request.Body);
-            //    return Ok(jsonDocument);
-            //}
-            //catch (Exception ex)
-            //{
-            //    return BadRequest(ex.Message);
-            //}
+            Models.CustomBotTextMsg payload = new();
+            payload.Content.Text = postData;
+            string jsonString = JsonSerializer.Serialize(payload);
+
+            //send post request to the webhook 
+            string url = "https://open.larksuite.com/open-apis/bot/v2/hook/9aa0f257-55f5-45c8-ae6e-45640640616c";
+            using HttpClient client = new();
+            HttpRequestMessage request = new(HttpMethod.Post, url)
+            {
+                Content = new StringContent(jsonString, Encoding.UTF8, "application/json")
+            };
+            HttpResponseMessage response = await client.SendAsync(request);
+            string content = await response.Content.ReadAsStringAsync();
+
+            return Ok(content);
         }
 
 

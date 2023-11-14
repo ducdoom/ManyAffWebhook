@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.7.34221.43
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ManyAffWebhook", "ManyAffWebhook\ManyAffWebhook.csproj", "{DE0220E3-8F47-4521-AFD7-1774652C52DB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ManyAffWebhook", "ManyAffWebhook\ManyAffWebhook.csproj", "{DE0220E3-8F47-4521-AFD7-1774652C52DB}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LarkSuite", "..\LarkClient\LarkSuite\LarkSuite.csproj", "{109F0644-1F10-40B1-AD1A-2563DEA1E658}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,10 @@ Global
 		{DE0220E3-8F47-4521-AFD7-1774652C52DB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{DE0220E3-8F47-4521-AFD7-1774652C52DB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{DE0220E3-8F47-4521-AFD7-1774652C52DB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{109F0644-1F10-40B1-AD1A-2563DEA1E658}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{109F0644-1F10-40B1-AD1A-2563DEA1E658}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{109F0644-1F10-40B1-AD1A-2563DEA1E658}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{109F0644-1F10-40B1-AD1A-2563DEA1E658}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
