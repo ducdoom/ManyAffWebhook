@@ -21,17 +21,27 @@ namespace ManyAffWebhook.Controllers
         {
             //read the body of the request as a string
             string postData = await new StreamReader(Request.Body).ReadToEndAsync();
-            Models.CustomBotTextMsg payload = new Models.CustomBotTextMsg();
+            Models.CustomBotTextMsg payload = new();
             payload.Content.Text = postData;
             string jsonString = JsonSerializer.Serialize(payload);
 
             //send post request to the webhook 
-            string url = "https://open.larksuite.com/open-apis/bot/v2/hook/9aa0f257-55f5-45c8-ae6e-45640640616c";
-            var client = new HttpClient();
-            var request = new HttpRequestMessage(HttpMethod.Post, url);
-            request.Content = new StringContent(jsonString, Encoding.UTF8, "application/json");
-            var response = await client.SendAsync(request);
-            return Ok("send message successfully!");
+            string url = "https://open.larksuite.com/open-apis/bot/v2/hook/4d04d1a5-4a75-4307-892d-fc4bd7179e08";
+            HttpClient client = new();
+            HttpRequestMessage request = new(HttpMethod.Post, url)
+            {
+                Content = new StringContent(jsonString, Encoding.UTF8, "application/json")
+            };
+
+            HttpResponseMessage response = await client.SendAsync(request);
+            if(response.IsSuccessStatusCode)
+            {                
+                return Ok("Success");
+            }
+            else
+            {
+                return BadRequest("Failed");
+            }          
         }
 
         [Route("sendmessageasync")]
