@@ -23,7 +23,13 @@ namespace ManyAffWebhook.Controllers
             string postData = await new StreamReader(Request.Body).ReadToEndAsync();
             Models.CustomBotTextMsg payload = new();
             payload.Content.Text = postData;
-            string jsonString = JsonSerializer.Serialize(payload);
+
+            LarkSuite.Models.CustomBotMessageCard messageCard = new();
+            messageCard.SetTitle("Ladisale Data");
+            messageCard.Add2ColumnTextElement("Key1", "Value1");
+            messageCard.Add2ColumnTextElement("Key2", "Value2");
+
+            string jsonString = JsonSerializer.Serialize(messageCard);
 
             //send post request to the webhook 
             string url = "https://open.larksuite.com/open-apis/bot/v2/hook/4d04d1a5-4a75-4307-892d-fc4bd7179e08";
@@ -34,14 +40,14 @@ namespace ManyAffWebhook.Controllers
             };
 
             HttpResponseMessage response = await client.SendAsync(request);
-            if(response.IsSuccessStatusCode)
-            {                
+            if (response.IsSuccessStatusCode)
+            {
                 return Ok("Success");
             }
             else
             {
                 return BadRequest("Failed");
-            }          
+            }
         }
 
         [Route("sendmessageasync")]
@@ -71,6 +77,23 @@ namespace ManyAffWebhook.Controllers
             return Ok(content);
         }
 
+        public async Task<LarkSuite.Models.CustomBotMessageCard> TransformPayload(Stream stream)
+        {
+            string postData = await new StreamReader(stream).ReadToEndAsync();
+            LarkSuite.Models.CustomBotMessageCard messageCard = new();
+
+            //check if postData contains ""source": "LADISALES""
+            //if yes, then transform to LarkSuite.Models.CustomBotMessageCard
+            //else, return null
+            if (postData.Contains(@"""source"": ""LADISALES"""))
+            {
+                messageCard.SetTitle("Ladisale Data");
+            }
+
+
+
+            return messageCard;
+        }
 
     }
 }
